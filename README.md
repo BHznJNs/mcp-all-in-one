@@ -4,6 +4,8 @@ An easy way to deploy multiple MCP servers in one Docker container. Based on [mu
 
 ## Getting Started
 
+### Local Deploy
+
 Clone this repo
 
 ```bash
@@ -22,6 +24,21 @@ Run
 ```bash
 docker run -p 8080:8080 -e GITHUB_PERSONAL_ACCESS_TOKEN=ghp_123456 -e TAVILY_API_KEY=tvly-dev-123456 mcp-allinone:latest
 ```
+
+### Deploy to Huggingface
+
+[Click here](https://huggingface.co/new-space) to create a space, select Docker, and then in the Files tab, upload the `Dockerfile` and `mcp.json` in this repo.
+
+Add secrets in Settings:
+
+| Variable Name | Example Value | Description |
+|     - - -     |     - - -     |    - - -    |
+| TAVILY_API_KEY | tavily-9876543210fedcba | Tavily Key |
+| GITHUB_PERSONAL_ACCESS_TOKEN | ghp_9876543210fedcba | GitHub Key|
+
+Click **Embed this Space** to get the link, e.g., `https://xxx-xxx.hf.space/`
+
+In your MCP client, select Remote servers, fill in the link obtained above, and add sse (e.g., `https://xxx-xxx.hf.space/sse`) to use it.
 
 ## Configuration
 
