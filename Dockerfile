@@ -27,4 +27,8 @@ RUN uv pip install -r requirements.txt
 # copy the config file
 COPY mcp.json /app/mcp.json
 
+RUN mkdir /app/.uv-cache && chmod -R 777 /app/.uv-cache
+ENV UV_CACHE_DIR=/app/.uv-cache
+RUN mkdir /app/.npm-cache && chmod -R 777 /app/.npm-cache
+ENV npm_config_cache=/app/.npm-cache
 CMD ["uv", "run", "main.py", "--host", "0.0.0.0", "--port", "8080", "--config", "mcp.json", "--transport", "sse"]
