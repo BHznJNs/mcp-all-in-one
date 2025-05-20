@@ -39,7 +39,56 @@ Add secrets in Settings:
 
 Click **Embed this Space** to get the link, e.g., `https://xxx-xxx.hf.space/`
 
-In your MCP client, select Remote servers, fill in the link obtained above, and add sse (e.g., `https://xxx-xxx.hf.space/sse`) to use it.
+### Use in your MCP client
+
+In your MCP client, if your client does not support remote MCP server, or if you used [authentication](#Authentication) that most clients does not support, please follows instructions below:
+
+1. Use these JSON in your MCP client config file:
+```json
+{
+  "mcpServers": {
+    "mcp-proxy": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://example.com/sse",
+        "--header",
+        "Authorization: Bearer <your-auth-token>"
+      ]
+    }
+  }
+}
+```
+
+If you are using Windows and Cline, you can try this:
+```json
+{
+  "mcpServers": {
+    "mcp-proxy": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "mcp-remote",
+        "https://example.com/sse",
+        "--header", "Authorization: Bearer <your-auth-token>"
+      ]
+    }
+  }
+}
+```
+2. Try to connect.
+
+### Extra prompts
+
+This tool aggregates all of your selected MCP servers under one server, and used namespace like `server_name::tool_name` to avoid conflicts and allow multiple servers to expose tools with the same base name. But for some MCP clients, the model does not use the namespaced name, but uses tool name standalone, which will cause error.
+You can try to use such a prompt to avoid that:
+
+```
+When you trying to use MCP tools under `mcp-remote`, please takes the namespace, like:
+   1. `github::add_issue_comment` instead of `add_issue_comment`
+   2. `context7::resolve-library-id` instead of `resolve-library-id`
+```
 
 ## Configuration
 
