@@ -23,7 +23,7 @@ Run
 
 ```bash
 # user your GitHub token and Tavily key here
-docker run -p 8080:8080 -e GITHUB_PERSONAL_ACCESS_TOKEN=ghp_123456 -e TAVILY_API_KEY=tvly-dev-123456 one-mcp:latest
+docker run -p 7860:7860 -e GITHUB_PERSONAL_ACCESS_TOKEN=ghp_123456 -e TAVILY_API_KEY=tvly-dev-123456 one-mcp:latest
 ```
 
 ### Deploy to Huggingface
@@ -33,9 +33,9 @@ docker run -p 8080:8080 -e GITHUB_PERSONAL_ACCESS_TOKEN=ghp_123456 -e TAVILY_API
 Add secrets in Settings:
 
 | Variable Name | Example Value | Description |
-|     - - -     |     - - -     |    - - -    |
+|      ---      |      ---      |     ---     |
 | TAVILY_API_KEY | tavily-9876543210fedcba | Tavily Key |
-| GITHUB_PERSONAL_ACCESS_TOKEN | ghp_9876543210fedcba | GitHub Key|
+| GITHUB_PERSONAL_ACCESS_TOKEN | ghp_9876543210fedcba | GitHub Key |
 
 Click **Embed this Space** to get the link, e.g., `https://xxx-xxx.hf.space/`
 
