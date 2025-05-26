@@ -6,36 +6,45 @@ An easy way to deploy multiple MCP servers in one Docker container. Based on [mu
 
 ### Local Deploy
 
-Clone this repo
-
 ```bash
-git clone https://github.com/One-MCP/one-mcp
-cd one-mcp
+docker pull ghcr.io/one-mcp/one-mcp:latest
+docker run -p 7860:7860 one-mcp:latest
 ```
 
-Build the Docker image
+### Extend the Image
 
-```bash
-docker build -t one-mcp:latest .
-```
+You can based the Dockerfile in this repo to add things you need.
+For example, you can use [such a Dockerfile](./server-build-examples/github/complete.Dockerfile) for the use of [GitHub MCP](https://github.com/github/github-mcp-server).
 
-Run
+You can also initialize environments like rust and java like this:
 
-```bash
-# user your GitHub token and Tavily key here
-docker run -p 7860:7860 -e GITHUB_PERSONAL_ACCESS_TOKEN=ghp_123456 -e TAVILY_API_KEY=tvly-dev-123456 one-mcp:latest
+```dockerfile
+FROM ghcr.io/one-mcp/one-mcp:latest
+
+# initiate rust environment
+RUN apk add --no-cache rust cargo
+
+# initiate java environment
+RUN apk add --no-cache openjdk17-jre
+
+# normally run the service
+COPY mcp.json /app/mcp.json
+EXPOSE 7860
+CMD . .venv/bin/activate && hypercorn src.main:app --bind 0.0.0.0:7860
 ```
 
 ### Deploy to Huggingface
 
-[Click here](https://huggingface.co/new-space) to create a space, select Docker, and then in the Files tab, upload the `Dockerfile` and `mcp.json` in this repo.
+[Click here](https://huggingface.co/new-space) to create a space, select Docker, and then in the Files tab, create a dockerfile like:
 
-Add secrets in Settings:
+```dockerfile
+FROM ghcr.io/one-mcp/one-mcp:latest
 
-| Variable Name | Example Value | Description |
-|      ---      |      ---      |     ---     |
-| TAVILY_API_KEY | tavily-9876543210fedcba | Tavily Key |
-| GITHUB_PERSONAL_ACCESS_TOKEN | ghp_9876543210fedcba | GitHub Key |
+EXPOSE 7860
+CMD . .venv/bin/activate && hypercorn src.main:app --bind 0.0.0.0:7860
+```
+
+Create an environment variable `CONFIG`, and the value is `./mcp.json`.
 
 Click **Embed this Space** to get the link, e.g., `https://xxx-xxx.hf.space/`
 
@@ -97,7 +106,7 @@ The detailed configuration can be found [here](https://github.com/One-MCP/multi-
 
 ### Authentication
 
-Authentication in this project is controlled by the AUTH_TOKEN environment variable:
+Authentication in this project is controlled by the `AUTH_TOKEN` environment variable:
 
 - If the AUTH_TOKEN environment variable is not set: Authentication will be disabled, and all API requests can be accessed without a token.
 - If the AUTH_TOKEN environment variable is set: Authentication will be enabled. All protected API requests must include a Bearer Token in the HTTP request header, and this token must exactly match the value of the AUTH_TOKEN environment variable.

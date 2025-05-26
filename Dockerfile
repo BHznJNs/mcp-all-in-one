@@ -8,6 +8,12 @@ RUN apk add --no-cache python3 py3-pip git py3-uv
 # initiate nodejs environment
 RUN apk add --no-cache nodejs npm
 
+# initiate rust environment
+RUN apk add --no-cache rust cargo
+
+# initiate java environment
+RUN apk add --no-cache openjdk17-jre
+
 # initiate multi-mcp
 RUN git clone https://github.com/One-MCP/multi-mcp.git .
 RUN uv venv

@@ -1,12 +1,15 @@
 {
   "mcpServers": {
-    "github": {
-      "command": "/usr/local/bin/github-mcp-server",
-      "args": ["stdio", "--toolsets", "all"]
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"]
     },
-    "tavily": {
+    "sequential-thinking": {
       "command": "npx",
-      "args": ["-y", "tavily-mcp@0.2.0"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
     }
   }
 }
