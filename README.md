@@ -94,9 +94,11 @@ This tool aggregates all of your selected MCP servers under one server, and used
 You can try to use such a prompt to avoid that:
 
 ```
-When you trying to use MCP tools under `mcp-remote`, please takes the namespace, like:
+When you trying to use MCP tools, please use the `mcp-proxy` as server name and takes the namespace for tool names and resource names, like:
    1. `github::add_issue_comment` instead of `add_issue_comment`
    2. `context7::resolve-library-id` instead of `resolve-library-id`
+   3. `tavily::tavily-search` instead of `tavily-search`
+   4. `chart-generator::generate_bar_chart` instead of `generate_bar_chart`
 ```
 
 ## Configuration
