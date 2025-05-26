@@ -93,7 +93,7 @@ When you trying to use MCP tools under `mcp-remote`, please takes the namespace,
 ## Configuration
 
 You can change the [``mcp.json``](./mcp.json) file to add what you want.
-The detailed configuration can be found [here](https://github.com/kfirtoledo/multi-mcp?tab=readme-ov-file#%EF%B8%8F-configuration).
+The detailed configuration can be found [here](https://github.com/One-MCP/multi-mcp?tab=readme-ov-file#configuration).
 
 ### Authentication
 
