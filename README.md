@@ -33,21 +33,6 @@ EXPOSE 7860
 CMD . .venv/bin/activate && hypercorn src.main:app --bind 0.0.0.0:7860
 ```
 
-### Deploy to Huggingface
-
-[Click here](https://huggingface.co/new-space) to create a space, select Docker, and then in the Files tab, create a dockerfile like:
-
-```dockerfile
-FROM ghcr.io/one-mcp/one-mcp:latest
-
-EXPOSE 7860
-CMD . .venv/bin/activate && hypercorn src.main:app --bind 0.0.0.0:7860
-```
-
-Create an environment variable `CONFIG`, and the value is `./mcp.json`.
-
-Click **Embed this Space** to get the link, e.g., `https://xxx-xxx.hf.space/`
-
 ### Use in your MCP client
 
 In your MCP client, if your client does not support remote MCP server, or if you used [authentication](#Authentication) that most clients does not support, please follows instructions below:

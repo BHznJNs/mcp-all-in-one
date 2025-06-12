@@ -11,6 +11,16 @@ jobs:
       contents: read
       packages: write
 
+    strategy:
+      matrix:
+        include:
+          - name: minimal
+            dockerfile: ./Dockerfile
+            image_name: latest
+          - name: full
+            dockerfile: ./full.Dockerfile
+            image_name: full
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -31,4 +41,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ env.REPO_LOWER }}:latest
+        file: ${{ matrix.dockerfile }}
+        tags: ghcr.io/${{ env.REPO_LOWER }}:${{ matrix.image_name }}
