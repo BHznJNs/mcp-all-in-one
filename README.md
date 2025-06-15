@@ -35,9 +35,27 @@ CMD . .venv/bin/activate && hypercorn src.main:app --bind 0.0.0.0:7860
 
 ### Use in your MCP client
 
-In your MCP client, if your client does not support remote MCP server, or if you used [authentication](#Authentication) that most clients does not support, please follows instructions below:
+For normal MCP client, you can use config below:
 
-1. Use these JSON in your MCP client config file:
+```json
+{
+  "mcpServers": {
+    "remote-mcp": {
+      "autoApprove": [],
+      "disabled": false,
+      "timeout": 60,
+      "type": "streamableHttp",
+      "url": "https://example.com/mcp",
+      "headers": {
+        "X-MCP-Token": "123456"
+      }
+    }
+  }
+}
+```
+
+If your client does not support remote MCP server, or if you used [authentication](#Authentication) that some clients does not support, please use config below:
+
 ```json
 {
   "mcpServers": {
@@ -71,7 +89,6 @@ If you are using Windows and Cline, you can try this:
   }
 }
 ```
-2. Try to connect.
 
 ### Extra prompts
 
@@ -82,8 +99,6 @@ You can try to use such a prompt to avoid that:
 When you trying to use MCP tools, please use the `mcp-proxy` as server name and takes the namespace for tool names and resource names, like:
    1. `github::add_issue_comment` instead of `add_issue_comment`
    2. `context7::resolve-library-id` instead of `resolve-library-id`
-   3. `tavily::tavily-search` instead of `tavily-search`
-   4. `chart-generator::generate_bar_chart` instead of `generate_bar_chart`
 ```
 
 ## Configuration
@@ -102,4 +117,10 @@ When authentication is enabled, you'll need to include the Authorization header 
 
 ```
 Authorization: Bearer YOUR_AUTH_TOKEN_VALUE
+```
+
+OR:
+
+```
+X-MCP-Token: <Your-AUTH_TOKEN>
 ```
